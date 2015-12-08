@@ -1,3 +1,11 @@
+<?php 
+session_start();
+function echo_if_error($key){
+	if(isset($_SESSION['errors'][$key])){
+		echo "<span class='errors'>".$_SESSION['errors'][$key]."</span>";
+	}
+}
+ ?>
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -9,16 +17,17 @@
 <body>
 	<div id="container">
 		<div id="login_register">
+
 			<fieldset>
 				<legend>Register</legend>
 					<form id="register" action="process.php" method="post">
-						<input type="hidden" name="action" value="register">
-						<input type="text" name="name-first" placeholder="first name">
-						<input type="text" name="name-last" placeholder="last name">
-						<input type="text" name="email" placeholder="email">
-						<input type="password" name="password" placeholder="password">
-						<input type="password" name="password_confirm" placeholder=" confirm password">
-						<input type="submit" value="Register!">
+								<input type="hidden" name="action" value="register">
+						<label><input type="text" name="name_first" placeholder="first name"><?php echo_if_error('name_first'); ?></label>
+						<label><input type="text" name="name_last" placeholder="last name"><?php echo_if_error('name_last'); ?></label>
+						<label><input type="text" name="email" placeholder="email"><?php echo_if_error('email'); ?></label>
+						<label><input type="password" name="password" placeholder="password"><?php echo_if_error('password'); ?></label>
+						<label><input type="password" name="password_confirm" placeholder=" confirm password"><?php echo_if_error('password_confirm'); ?></label>
+						<label><input type="submit" value="Register!">
 					</form><!-- end of register -->
 			</fieldset>
 			<fieldset>
