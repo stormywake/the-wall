@@ -88,12 +88,14 @@ function login(){
 		echo "win";
 	}
 	else{
-		$_SESSION['errors']['login']="Login information is incorrect";
+		$_SESSION['errors']['login'] = "Login information is incorrect";
+		// var_dump($_SESSION['errors']['login']);
 		header("Location: index.php");
 	}
+	//copy login information to $_SESSION VAR
 
-		// $_SESSION = fetch($query)[0];  // returns array
-		// var_dump($_SESSION);
+	// $_SESSION = fetch($query)[0];  // returns array
+	// 	var_dump($_SESSION);
 		
 
 		// $_SESSION = array();
