@@ -7,6 +7,7 @@ unset($_SESSION['errors']);
 // var_dump($_SESSION);
 // var_dump($_POST);
 ?>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12 text-center">
@@ -22,8 +23,6 @@ unset($_SESSION['errors']);
 		<div><!-- end of messages -->
 	</div><!-- end of messages -->
 </div><!-- end container -->
-
-
 
 
 <?php include('footer.php'); ?>

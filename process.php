@@ -67,10 +67,15 @@ function insert_query($post){
 	$query = "INSERT INTO users(name_first, name_last, email, password, created_at, updated_at)
 	values('{$post['name_first']}','{$post['name_last']}','{$post['email']}','{$post['password']}',now(),now())";
 	if(run_mysql_query($query)){ // run query here
-		$get_register_query ="SELECT * FROM USERS WHERE users.email= '{$post['email']}' and users.password= '{$post['password']}';";
-		$_SESSION=fetch($get_register_query)[0];
-		header("Location: wall.php");
-		// header('Location: wall.php');
+		$get_register_query ="SELECT id as user_id, name_first, name_last
+								FROM users
+								WHERE email='{$post['email']}'
+								AND password='{$post['password']}';
+		";
+		var_dump($get_register_query); die();
+		// $_SESSION=fetch($get_register_query)[0]; // user array replaces SESSION
+		// header("Location: wall.php");
+
 	} else{
 		var_dump($post);
 		die("System Error");
@@ -91,14 +96,24 @@ function login(){
 	$email = escape_this_string($_POST['email']);
 	$password = escape_this_string($_POST['password']); 
 	//check is login info is in database
-	$query = "SELECT *  FROM users WHERE users.email ='{$email}' and users.password ='{$password}'; ";
+	// $query = "SELECT *  FROM users WHERE users.email ='{$email}' and users.password ='{$password}'; ";
+	$query = "SELECT id as user_id, name_first, name_last
+								FROM users
+								WHERE email='{$email}'
+								AND password='{$password}';
+		";
 	if(!fetch($query)){
 		$_SESSION['errors']['login'] = "Login information is incorrect";
 		header("Location: index.php");
 		die();
 	}
 
-	$_SESSION= fetch($query)[0];  // returns array
+	$_SESSION= fetch($query)[0];  //// user array replaces SESSION
+
+	// $user = fetch($query)[0];	
+	// $_S['user-id'] = $user['id'];
+	// $_S['user-name'] = $user['name_first'];
+
 		header("Location: wall.php");
 }
 
