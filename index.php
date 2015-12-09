@@ -33,12 +33,14 @@ function echo_if_error($key){
 			<fieldset>
 				<legend>Login</legend>
 					<form id="login" action="process.php" method="post">
-						<input type="hidden" name="action" value="register">
-						<input type="text" name="email" placeholder="email">
-						<input type="password" name="password" placeholder="password">
-						<input type="submit" value="Login!">
+						<label><?php echo_if_error('login'); ?></label>
+						<label><input type="hidden" name="action" value="login">
+						<label><input type="text" name="email" placeholder="email"></label>
+						<label><input type="password" name="password" placeholder="password"></label>
+						<label><input type="submit" value="Login!">
 					</form><!-- end of login -->
 			</fieldset>
+			 <?php unset($_SESSION['errors']); ?>
 		</div><!-- end of login_register -->
 	</div><!--end of container -->
 </body>
