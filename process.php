@@ -61,8 +61,10 @@ function insert_query($post){
 	$query = "INSERT INTO users(name_first, name_last, email, password, created_at, updated_at)
 	values('{$post['name_first']}','{$post['name_last']}','{$post['email']}','{$post['password']}',now(),now())";
 	if(run_mysql_query($query)){ // run query here
-		return true;
-		header('Location: wall.php');
+		$_SESSION= fetch($query)[0];
+		var_dump($_SESSION);
+		// header('Location: wall.php');
+		// return true;
 	} else{
 		var_dump($post);
 		die("System Error");
@@ -84,26 +86,14 @@ function login(){
 	$password = escape_this_string($_POST['password']); 
 	//check is login info is in database
 	$query = "SELECT *  FROM users WHERE users.email ='{$email}' and users.password ='{$password}'; ";
-	if(fetch($query)){
-		echo "win";
-	}
-	else{
+	if(!fetch($query)){
 		$_SESSION['errors']['login'] = "Login information is incorrect";
-		// var_dump($_SESSION['errors']['login']);
 		header("Location: index.php");
+		die();
 	}
-	//copy login information to $_SESSION VAR
 
-	// $_SESSION = fetch($query)[0];  // returns array
-	// 	var_dump($_SESSION);
-		
-
-		// $_SESSION = array();
-
-
-
-	// echo $_SESSION['user']['name_first'] . " " . $_SESSION['user']['name_last'];
-	
+	$_SESSION= fetch($query)[0];  // returns array
+		header("Location: wall.php");
 }
 
 	

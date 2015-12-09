@@ -1,47 +1,63 @@
-<?php 
+<?php
 session_start();
-function echo_if_error($key){
-	if(isset($_SESSION['errors'][$key])){
-		echo "<span class='errors'>".$_SESSION['errors'][$key]."</span>";
-	}
-}
+include('header.php');
  ?>
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>The Wall</title>
-	<meta name="description" content="Coding Dojo The Wall Assignment">
-</head>
-<body>
-	<div id="container">
-		<div id="login_register">
-
-			<fieldset>
-				<legend>Register</legend>
-					<form id="register" action="process.php" method="post">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-5 col-sm-offset-1">
+				<fieldset>
+					<legend>Register</legend>
+						<form id="register" action="process.php" method="post">
+							<div class="form-group">
 								<input type="hidden" name="action" value="register">
-						<label><input type="text" name="name_first" placeholder="first name"><?php echo_if_error('name_first'); ?></label>
-						<label><input type="text" name="name_last" placeholder="last name"><?php echo_if_error('name_last'); ?></label>
-						<label><input type="text" name="email" placeholder="email"><?php echo_if_error('email'); ?></label>
-						<label><input type="password" name="password" placeholder="password"><?php echo_if_error('password'); ?></label>
-						<label><input type="password" name="password_confirm" placeholder=" confirm password"><?php echo_if_error('password_confirm'); ?></label>
-						<label><input type="submit" value="Register!">
-					</form><!-- end of register -->
-			</fieldset>
-			<fieldset>
-				<legend>Login</legend>
-					<form id="login" action="process.php" method="post">
-						<label><?php echo_if_error('login'); ?></label>
-						<label><input type="hidden" name="action" value="login">
-						<label><input type="text" name="email" placeholder="email"></label>
-						<label><input type="password" name="password" placeholder="password"></label>
-						<label><input type="submit" value="Login!">
-					</form><!-- end of login -->
-			</fieldset>
-			 <?php unset($_SESSION['errors']); ?>
-		</div><!-- end of login_register -->
+								<label for="name_first">First Name: <?php echo_if_error('name_first'); ?></label>
+									<input class="form-control" type="text" name="name_first" id="first" placeholder="first name">
+							</div><!-- end of name -->
+							<div class="form-group">
+								<label>Last Name: <?php echo_if_error('name_last'); ?></label>
+								<input class="form-control" type="text" name="name_last" placeholder="last name">
+							</div>
+							<div class="form-group">
+								<label>Email: <?php echo_if_error('email'); ?></label>
+								<input class="form-control" type="text" name="email" placeholder="email">
+							</div>
+							<div class="form-group">
+								<label>Password: <?php echo_if_error('password'); ?></label>
+								<input class="form-control" type="password" name="password" placeholder="password">
+							</div>
+							<div class="form-group">
+								<label>Confirm Password: <?php echo_if_error('password_confirm'); ?></label>
+								<input class="form-control" type="password" name="password_confirm" placeholder=" confirm password">
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-success btn-block" value="Register!">
+							</div>
+						</form><!-- end of register -->
+				</fieldset>
+			</div> <!-- end of registration -->
+			<div class="col-sm-5">
+				<fieldset>
+					<legend>Login</legend>
+						<form id="login" action="process.php" method="post">
+							<div>
+								<label><?php echo_if_error('login'); ?></label>
+								<input type="hidden" name="action" value="login">
+							</div>
+							<div class="form-group">
+								<label>Email:</label>
+								<input  class="form-control" type="text" name="email" placeholder="email">
+							</div>
+							<div class="form-group">
+							<label>Password:</label>
+								<input class="form-control" type="password" name="password" placeholder="password">
+							</div>
+							<div class="form-group">
+								<input class="btn btn-success btn-block" type="submit" value="Login!">
+							</div>
+						</form><!-- end of login -->
+				</fieldset>
+				 <?php unset($_SESSION['errors']); ?>
+			</div><!-- end of login_register -->
+		</div><!-- end of form row -->
 	</div><!--end of container -->
-</body>
-</html>
+	<?php require_once('footer.php') ?>
