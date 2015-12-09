@@ -27,28 +27,32 @@ function insert_query_post($post){
  }
 
 // function to get post all posts to wall
-	function pull_query(){
-		$query= "SELECT * FROM users
-		JOIN posts ON posts.user_id = users.id;";
-		if(!fetch($query)){
-			$_SESSION['errors']['posts'] = "post query was wrong";
-			header("Location: wall.php");
-			die();
-		}
+function pull_query(){
+	$query= "SELECT * FROM users
+	JOIN posts ON posts.user_id = users.id;";
+	if(!fetch($query)){
+		$_SESSION['errors']['posts'] = "post query was wrong";
+		header("Location: wall.php");
+		die();
+	}
 
-		$_SESSION['posts']= fetch($query);  // returns array
-	}
-	function post_to_wall(){
-		pull_query();
-		foreach ($_SESSION['posts'] as  $value) { ?>
-			<h1><?php echo $value['name_first']; ?></h1>
+	$_SESSION['posts']= fetch($query);  // returns array
+}
+
+function post_to_wall(){
+	pull_query();
+	foreach (array_reverse($_SESSION['posts']) as  $value) { ?>
+		<div class="well well-sm col-sm-8 col-sm-offset-2 blog text-center">
+			<h3><?php echo ucfirst($value['name_first'])." ".ucfirst($value['name_last']) ?></h3>
+			<p class="initialism" ><?php echo date('g:i a F j Y ', strtotime($value['created_at']));?></p>
 			<p><?php echo $value['content']; ?></p>
-			
-			
-		<?php } 
+			<input class="btn btn-danger btn-sm" type="button" value="Delete">
+		</div>
+	<?php } 
 	}
- //run query
- //place query into var
- // return var
+
+
+
+
 
  ?>

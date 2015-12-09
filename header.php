@@ -57,6 +57,12 @@ function logged_in(){
               <li><a href="post.php"> Write a post!</a></li>
               <li><a href="wall.php"> See your wall!</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <form action="process.php" method="post">
+                <input type="hidden" name="action" value="logout">
+                <input class="btn btn-danger" type="submit" name="logout" value="Logout!">
+              </form>
+            </ul>
           </div><!--  end of navs -->
         </div>
       </nav>

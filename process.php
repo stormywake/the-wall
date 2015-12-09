@@ -2,12 +2,18 @@
 session_start();
 require('connection.php');
 
+
+
 if($_POST['action']=="register"){
 	register();
 }
-else if($_POST['action']=="login"){
+if($_POST['action']=="login"){
 	login();
 }
+if($_POST['action']=="logout"){
+	logout();
+}
+
 
 function validate_register(){
 	if($_POST['action']=="register"){
@@ -61,10 +67,10 @@ function insert_query($post){
 	$query = "INSERT INTO users(name_first, name_last, email, password, created_at, updated_at)
 	values('{$post['name_first']}','{$post['name_last']}','{$post['email']}','{$post['password']}',now(),now())";
 	if(run_mysql_query($query)){ // run query here
-		$_SESSION= fetch($query)[0];
-		var_dump($_SESSION);
+		$get_register_query ="SELECT * FROM USERS WHERE users.email= '{$post['email']}' and users.password= '{$post['password']}';";
+		$_SESSION=fetch($get_register_query)[0];
+		header("Location: wall.php");
 		// header('Location: wall.php');
-		// return true;
 	} else{
 		var_dump($post);
 		die("System Error");
@@ -96,5 +102,11 @@ function login(){
 		header("Location: wall.php");
 }
 
+
+function logout(){
+	session_destroy();
+	header("Location: index.php");
+	die();
+}
 	
  ?>
